@@ -84,8 +84,14 @@ const register = async (req, res) => {
     }
 }
 
+/**
+ * 
+ * @route GET /api/user/current
+ * @desc currentUser
+ * @access Private
+ */
 const current = async (req, res) => {
-    res.send('current');
+    res.status(200).json(req.user)
 }
 
 module.exports = {
