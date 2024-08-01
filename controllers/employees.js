@@ -28,14 +28,10 @@ const add = async (req, res) => {
             return res.status(400).json({message : 'All fields are required'})
         }
 
-        const employee = await prisma.user.update({
-            where : {
-                id : req.user.id,
-            },
+        const employee = await prisma.employee.create({
             data : {
-                createdEmployee : {
-                    create: data
-                }
+                ...data,
+                userId: req.user.id
             }
         })
 
@@ -46,7 +42,75 @@ const add = async (req, res) => {
     }
 }
 
+/**
+ * @route POST /api/employees/remove/:id
+ * @desc remove Employee
+ * @access Private
+ */
+const remove = async (req, res) => {
+    const {id} = req.body
+
+    try {
+        await prisma.employee.delete({
+            where : {
+                id
+            }
+        })
+
+        return res.status(204).json('OK')
+    } catch (error) {
+        res.status(500).json({ message : 'An error occured during deleting an employee'})
+    }
+}
+
+/**
+ * @route PUT /api/employees/edit/:id
+ * @desc edit Employee
+ * @access Private
+ */
+const edit = async (req, res) => {
+    const {id} = req.body
+    const data = req.body
+
+    try {
+        await prisma.employee.update({
+            where : {
+                id
+            },
+            data
+        })
+
+        return res.status(204).json('OK')
+    } catch (error) {
+        res.status(500).json({ message : 'An error occured during updating an employee'})
+    }
+}
+
+/**
+ * @route GET /api/employees/:id
+ * @desc get Employee
+ * @access Private
+ */
+const employee = async (req, res) => {
+    const {id} = req.params
+
+    try {
+        const employee = await prisma.employee.findUnique({
+            where : {
+                id
+            }
+        })
+
+        return res.status(200).json(employee)
+    } catch (error) {
+        res.status(500).json({ message : 'An error occured during getting an employee'})
+    }
+} 
+
 module.exports = {
     all,
-    add
+    add,
+    remove,
+    edit,
+    employee
 }
