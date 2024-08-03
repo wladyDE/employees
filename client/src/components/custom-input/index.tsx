@@ -15,7 +15,7 @@ export const CustomInput = ({
   return (
     <Form.Item
       name={name}
-      rules={[{ required: true, message: "Обязательное поле" }]}
+      rules={[{ required: true, message: "Required Field" }]}
       shouldUpdate={ true }
     >
       <Input
