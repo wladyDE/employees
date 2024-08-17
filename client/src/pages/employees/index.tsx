@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom"
 import { Paths } from "../../paths"
 import { useSelector } from "react-redux"
 import { selectUser } from "../../features/auth/authSlice"
-import { log } from "console"
 import { useEffect } from "react"
 
 const columns: ColumnsType<Employee> = [
@@ -40,10 +39,11 @@ export const Employees = () => {
             navigate(Paths.login)
         }
     }, [navigate, user])
-    
+
+    const goToAddUser = () => navigate(Paths.employeeAdd)
 
     return <Layout>
-        <CustomButton type="primary" onClick={() => null} icon={<PlusCircleOutlined/>}>
+        <CustomButton type="primary" onClick={goToAddUser} icon={<PlusCircleOutlined/>}>
             Add 
         </CustomButton>
         <Table
