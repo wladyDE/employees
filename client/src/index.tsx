@@ -13,6 +13,7 @@ import './index.css';
 import { Employees } from './pages/employees';
 import AddEmployee from './pages/add-employee';
 import Status from './pages/status';
+import Employee from './pages/employee';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: `${Paths.status}/:status`,
     element: <Status />
+  },
+  {
+    path: `${Paths.employee}/:id`,
+    element: <Employee />
   }
 ])
 
